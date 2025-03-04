@@ -1,9 +1,9 @@
 ---
-title: "WikiLake - Documentación del Equipo de Big Data - Prueba"
+title: "WikiLake - Documentación del Equipo de Big Data"
 description: "Portal oficial de documentación, guías y mejores prácticas del Equipo de Big Data"
 ---
 
-# Bienvenido a la WikiLake
+# Bienvenido a la WikiLake V2
 
 ¡Te damos la bienvenida a nuestro espacio central de conocimiento! Aquí encontrarás toda la información necesaria sobre procesos, proyectos, lineamientos y mejores prácticas que utilizamos en el Equipo de Big Data. Esta wiki está diseñada para ser el punto de referencia principal, de manera que puedas acceder fácilmente a la documentación y colaborar con el crecimiento de la organización.
 
