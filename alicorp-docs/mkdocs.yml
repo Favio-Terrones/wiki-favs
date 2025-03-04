@@ -1,0 +1,21 @@
+site_name: "WikiLake"
+theme:
+  name: material  # El tipo de tema que tenemos asociado
+  custom_dir: overrides
+  language: es
+
+
+copyright: Copyright &copy; 2025 - DataOps Team
+
+nav:
+  - Inicio: index.md
+  - Frentes:
+      # - "Comercial": guias/guia_usuario.md
+      # - "Cloud": guias/guia_usuario.md
+      # - "Finanzas": guias/guia_tecnica.md
+      # - "Supply": guias/guia_tecnica.md
+      - "DataOps": 
+        - "Componentes": 
+             - "CloudFunction": 
+               - "Tipo-Parquet": dataops/cloudFunction/cloudFunctionParquet.md
+                                
