@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - main  # Se activará cuando hagas push a la rama main
+      
+permissions:
+  contents: write   # <--- Importante para permitir push a gh-pages
 
 jobs:
   deploy:
