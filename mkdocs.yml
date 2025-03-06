@@ -4,18 +4,25 @@ theme:
   custom_dir: overrides
   language: es
 
-
 copyright: Copyright &copy; 2025 - DataOps Team
 
 nav:
   - Inicio: index.md
   - Frentes:
-      # - "Comercial": guias/guia_usuario.md
-      # - "Cloud": guias/guia_usuario.md
-      # - "Finanzas": guias/guia_tecnica.md
-      # - "Supply": guias/guia_tecnica.md
-      - "DataOps": 
-        - "Componentes": 
-             - "CloudFunction": 
-               - "Tipo-Parquet": dataops/cloudFunction/cloudFunctionParquet.md
-                                
+      # - Comercial: guias/guia_usuario.md
+      # - Cloud: guias/guia_usuario.md
+      # - Finanzas: guias/guia_tecnica.md
+      # - Supply: guias/guia_tecnica.md
+      - DataOps:
+          - Utilidades:
+              - Bash-Github: dataops/utilidades/bash/bash-001.md
+          - Componentes:
+              - CloudComposer:
+                  - Dag Execution: dataops/cloudComposer/DagExecution/dag-execution.md
+                  - Plantillas:
+                      - Carga Completa: dataops/cloudComposer/DagExecution/plantillas/carga-completa.md
+                      - Carga Diaria: dataops/cloudComposer/DagExecution/plantillas/carga-diaria.md
+                      - Carga Mixta: dataops/cloudComposer/DagExecution/plantillas/carga-mixta.md
+                      - Carga por Partición: dataops/cloudComposer/DagExecution/plantillas/carga-por-particion.md
+              - CloudFunction:
+                  - Tipo-Parquet: dataops/cloudFunction/cloudFunctionParquet.md
