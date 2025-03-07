@@ -1,4 +1,4 @@
-site_name: "WikiLake"
+site_name: "Wiki - DataLake"
 theme:
   name: material  # El tipo de tema que tenemos asociado
   custom_dir: overrides
@@ -13,6 +13,7 @@ nav:
       # - Cloud: guias/guia_usuario.md
       # - Finanzas: guias/guia_tecnica.md
       # - Supply: guias/guia_tecnica.md
+      # - SMT: guias/guia_tecnica.md
       - DataOps:
           - Utilidades:
               - Bash-Github: dataops/utilidades/bash/bash-001.md

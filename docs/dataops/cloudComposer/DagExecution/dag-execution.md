@@ -1,7 +1,5 @@
 # Dag - Execution
-
-**Datalake**  
-**Agosto 2023**
+![Static Badge](https://img.shields.io/badge/Agosto-2023---)
 
 ---
 
@@ -9,7 +7,7 @@
 
 1. [Diagrama de Funcionamiento](#diagrama-de-funcionamiento)
 2. [Diagrama de Registro de Nuevo DAG](#diagrama-de-registro-de-nuevo-dag)
-3. [Archivo Parameters y Tablas de Ingesta - Dependencia](#archivo-parameters-y-tablas-de-ingesta---dependencia)
+3. [Archivo Parameters y Tablas de Ingesta - Dependencia](#archivo-parameters-y-tablas-de-ingesta-dependencia)
 4. [Archivo Maestro de DAGs](#archivo-maestro-de-dags)
 
 ---
@@ -26,7 +24,7 @@
 
 ## Diagrama de Registro de Nuevo DAG
 
-![Diagrama de Registro de Nuevo DAG](dummie.png)
+![Diagrama de Registro de Nuevo DAG](../images/diagrama_nuevo_dag.png)
 
 1. Se debe registrar la dependencia entre dags en el archivo `parameters.json` en el modelo nuevo.
 
@@ -38,7 +36,7 @@
 
 ## Archivo Parameters y Tablas de Ingesta - Dependencia
 
-![Archivo Parameters y Tablas de Ingesta](dummie.png)
+![Archivo Parameters y Tablas de Ingesta](../images/dag_dependencies.png)
 
 En este archivo JSON se registran las dependencias entre dags. Solo se registra el nombre del dag, ya sea del mismo ambiente o del ambiente anterior, en la parte de `dag_dependencies`. Se toma como ejemplo el dag de *gld cliente*.
 
@@ -72,18 +70,14 @@ Esta tabla contiene todos los nombres de las tablas que se usan en los dags, ya 
 
 ### Estructura de la Tabla de Ingesta
 
-- Nombre del dataset
-- Nombre de la tabla
-- Identificador de la tabla
-- Estado de actualización de la tabla
-- Estado de la tabla después del proceso de actualización
-- Indica si la cantidad incrementó
-- Campo usado como flag
-- Fecha de actualización de la tabla
-- Cantidad de registros
-- Variación de cantidad
-- Indica si la tabla se cargó correctamente
-- Plataforma a la que pertenece la tabla
+
+| Esquema                                                         | Descripción                                                                                                                                                                                                                                                                                                      |
+|---------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| ![Mi imagen](../images/tabla-ingesta.png)                       | <ul><li>Nombre del dataset</li><li>Nombre de la tabla</li><li>Identificador de la tabla</li><li>Estado de actualización de la tabla</li><li>Estado de la tabla después del proceso de actualización</li><li>Indica si la cantidad incrementó</li><li>Campo usado como flag</li><li>Fecha de actualización de la tabla</li><li>Cantidad de registros</li><li>Variación de cantidad</li><li>Indica si la tabla se cargó correctamente</li><li>Plataforma a la que pertenece la tabla</li></ul> |
+
+
+
+> **nota**: No es necesario completar todas las columnas si no se tiene el detalle de cada una de ellas. El insert general que se utiliza es el siguiente:
 
 #### Ejemplo de Insert
 
@@ -92,7 +86,7 @@ INSERT INTO `acpe-prod-brz.PROD_CONFIG.config_tablas_ingesta`
 VALUES('PROD__SAPS4','t001k','',true,true,false,false,CURRENT_TIMESTAMP(),0,0,true,'SAPS4');
 ```
 
-# Campos indispensables
+### Campos indispensables
 
 - **Dataset**
 - **Table_name**
@@ -103,3 +97,56 @@ VALUES('PROD__SAPS4','t001k','',true,true,false,false,CURRENT_TIMESTAMP(),0,0,tr
 - **Last_ejecution**  
   Indica la fecha de actualización de la tabla, con valor por defecto `CURRENT_TIMESTAMP()`.
 - **Plataforma**
+
+> Los otros campos puede ir con valores por defecto como se indica en el insert siguiente:
+
+```sql
+INSERT INTO `acpe-prod-brz.PROD_CONFIG.config_tablas_ingesta` 
+VALUES(‘{dataset}’,’{table_name}','',true,’{status_last_ejecution}',false,false,’{last_ejecution}',0,0,true,'{plataforma}');
+```
+
+
+## Tabla de Dependencia
+
+Esta tabla contiene los nombres de los dags que se ejecutan en el dag execution y cada dag contiene las tablas que se utilizan en la lógica de los dml(.sql), estas tablas deben estar registradas en la tabla **config_tablas_ingesta** para que el proceso de dag execution ejecute correctamente.
+
+
+| Esquema                                                     | Descripción                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+|-------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| ![Mi imagen](../images/tabla-dependencia.png)                   | <ul><li>Nombre del equipo al que pertenece el dag</li><li>Descripción general del dag</li><li>Descripción detallada del dag</li><li>Nombre del dag</li><li>Frecuencia de actualización (día, mes, año)</li><li>Fecha de inicio de ejecución del dag</li><li>Indica si el dag ejecutó correctamente</li><li>Fecha fin de ejecución del dag</li><li>Nombre del dataset de la tabla dependiente</li><li>Nombre de la tabla dependiente</li><li>Ambiente de la tabla dependiente</li><li>Grado de dependencia con la tabla dependiente</li><li>Días de tolerancia para actualización de la tabla dependiente</li></ul> |
+
+
+> No es necesario completar todas las columnas si no se tiene el detalle de cada una de ellas. El insert general que se utiliza es el siguiente:
+
+
+```sql
+INSERT INTO `acpe-prod-brz.PROD_CONFIG.config_dependencias_dag` 
+VALUES
+('SUPPLY','MODELO MAESTRO','tablas del modelo maestro','alicorp-pe-s4-dd-slv-modelo-maestro','DIARIA',CURRENT_TIMESTAMP(),'SUCCEEDED',CURRENT_TIMESTAMP(),'PROD__SAPS4','t001l','BRONZE','DIARIA',0);
+```
+
+
+### Campos indispensables
+
+- **equipo**
+- **nombre_descriptivo_dag**
+- **descripción**  
+- **recurso**  
+- **dataset**
+- **nombre_tabla**
+- **tipo_ingesta**
+
+> Los otros campos puede ir con valores por defecto como se indica en el insert siguiente:
+
+```sql
+INSERT INTO `acpe-prod-brz.PROD_CONFIG.config_dependencias_dag` 
+VALUES(‘{equipo}’,’{nombre_descriptivo_dag}’,’{descripcion}’,’{recurso}','DIARIA',CURRENT_TIMESTAMP(),'SUCCEEDED',CURRENT_TIMESTAMP(),’{dataset}’,’{nombre_tabla}’,’{tipo_ingesta}','DIARIA',0);
+```
+
+## Archivo Maestro de Dags
+
+En este archivo json se registra le nombre del dag para que aparezca en el proceso de ejecución del dag trigger_02, de lo contrario no va a aparecer el nombre.
+
+![Mi imagen](../images/archivo-maestro-dag.png)   
+
+

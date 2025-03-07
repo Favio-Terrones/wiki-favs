@@ -1,4 +1,4 @@
-# CloudFunction - Carga archivos .parquet a BigQuery
+# Carga archivos .parquet a BigQuery 
 
 ## Propósito General
 
