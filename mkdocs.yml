@@ -11,19 +11,20 @@ nav:
   - Frentes:
       - Comercial: comercial/index-comercial.md
       - Cloud: cloud/index-cloud.md
-      - DataOps:
-          - Utilidades:
-              - Bash-Github: dataops/utilidades/bash/bash-001.md
-          - Componentes:
-              - Bigquery:
-                  - Calculadora Costos: dataops/bigquery/calculadora-costos.md
-              - CloudComposer:
-                  - Dag Execution: dataops/cloudComposer/DagExecution/dag-execution.md
-                  - Plantillas:
-                      - Clasico: dataops/cloudComposer/DagExecution/plantillas/clasicos.md
-                      - Custom: dataops/cloudComposer/DagExecution/plantillas/customs.md
-              - CloudFunction:
-                  - Tipo-Parquet: dataops/cloudFunction/cloudFunctionParquet.md
+      - DataOps: 
+        - Sobre Nosotros:  dataops/index-dataops.md
+        - Utilidades:
+            - Bash-Github: dataops/utilidades/bash/bash-001.md
+        - Componentes:
+            - Bigquery:
+                - Calculadora Costos: dataops/bigquery/calculadora-costos.md
+            - CloudComposer:
+                - Dag Execution: dataops/cloudComposer/DagExecution/dag-execution.md
+                - Plantillas:
+                    - Clasico: dataops/cloudComposer/DagExecution/plantillas/clasicos.md
+                    - Custom: dataops/cloudComposer/DagExecution/plantillas/customs.md
+            - CloudFunction:
+                - Tipo-Parquet: dataops/cloudFunction/cloudFunctionParquet.md
       - Finanzas: finanzas/index-finanzas.md
       - Supply: supply/index-supply.md
       - SMT: smt/index-smt.md
