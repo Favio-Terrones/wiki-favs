@@ -1,0 +1,24 @@
+{
+    "dag_id":"aa_demo-{env}-template-carga-por-particion",
+    "create_disposition":"CREATE_NEVER",
+    "write_dispositions": [
+        {
+            "load_type": "PARTITION_LOAD",
+            "scripts": [
+                "script_01",
+                "script_02",
+                "script_03",
+                "script_04_final"
+            ]
+        }
+    ],
+    "retries":"1",
+    "retry_delay":"1",
+    "historico": "0",
+    "dia_corte":"7",
+    "periodoinicio":"2024-01",
+    "periodofin":"2024-05",
+    "dependencies_table":"{bronze_project_id}.{dataset_env}_CONFIG.config_dependencias_dag",
+    "dag_dependencies": [],
+    "mail_responsables": ["LD_gestion-datalake@alicorp.com.pe"]
+}
